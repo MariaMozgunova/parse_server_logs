@@ -31,4 +31,4 @@ jobs:
 
     - name: Make .exe file
       run: |
-        gcc parse_server_logs.c -lm -o parse_server_logs.exe
+        gcc process_logs.c -lm -o process_logs.exe
