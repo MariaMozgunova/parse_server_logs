@@ -1,0 +1,34 @@
+name: Testing
+
+on:
+  push: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Clone googletest repo
+      run: |
+        git clone https://github.com/google/googletest.git -b release-1.11.0
+
+    - name: Configure
+      run: |
+        cmake -S. -Bbuild
+
+    - name: Build
+      run: |
+        cmake --build build
+
+    - name: Test
+      run: |
+        ./build/tests_hw3
+
+    - name: Make .exe file
+      run: |
+        gcc parse_server_logs.c -lm -o parse_server_logs.exe
