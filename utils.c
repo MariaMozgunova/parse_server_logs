@@ -50,7 +50,7 @@ time_t time_since_the_epoch(char str_time[]) {
     return res;
 }
 
-void getline(FILE * file, char line[], char date_str[], uint8_t is_end_file) {
+void get_line(FILE * file, char line[], char date_str[], uint8_t is_end_file) {
     char c = '\0';
 
     if ((c = fgetc(file)) == EOF) {
@@ -107,8 +107,8 @@ void solve(int argc, char* argv[], uint64_t* c5, uint64_t* ml) {
     char max_end_date_str[DATE_LENGTH];
     char max_start_date_str[DATE_LENGTH];
     
-    getline(end_date_file, end_date_line, end_date_str, 1);
-    getline(start_date_file, start_date_line, start_date_str, 0);
+    get_line(end_date_file, end_date_line, end_date_str, 1);
+    get_line(start_date_file, start_date_line, start_date_str, 0);
 
     while (end_date_line[0] != '\0') {
         time_t start_date = time_since_the_epoch(start_date_str);
@@ -117,7 +117,7 @@ void solve(int argc, char* argv[], uint64_t* c5, uint64_t* ml) {
 
         while (end_date_line[0] && end_date < future_limit) {
             strcpy(buffer_date_str, end_date_str);        
-            getline(end_date_file, end_date_line, end_date_str, 1);
+            get_line(end_date_file, end_date_line, end_date_str, 1);
             end_date = time_since_the_epoch(end_date_str);
             cur_logs++;
         }
@@ -131,7 +131,7 @@ void solve(int argc, char* argv[], uint64_t* c5, uint64_t* ml) {
         strcpy(buffer_date_str, start_date_str);        
 
         while (end_date_line[0] && !strcmp(buffer_date_str, start_date_str)) {
-            getline(start_date_file, start_date_line, start_date_str, 0);
+            get_line(start_date_file, start_date_line, start_date_str, 0);
             cur_logs--;
         }
     }
